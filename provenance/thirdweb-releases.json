@@ -1,0 +1,23 @@
+{
+  "publisher": "0xdd99b75f095d0c4d5112aCe938e4e6ed962fb024",
+  "contracts": [
+    {
+      "name": "TokenERC20",
+      "version": "5.0.4",
+      "publishMetadataUri": "ipfs://QmNfynBfFjdqmKgeggXAjWWkLzWx1jD84phqJzxwQNY3eP/0",
+      "compilerMetadataUri": "ipfs://QmbTKoDMPt34Us9EsxxHFkFZ55gpAp5SMZvjBWbWYcX5QR",
+      "bytecodeUri": "ipfs://QmTZRbxxZLjdMnGtnQBzTvUFZwbSppZSddXoBg9xSaTFW8/0",
+      "creationBytecodeHash": "0x8f0b6a31c72603c3e4de170187fbccf4e321c408c871ef4720e4607a2d8dde6e",
+      "auditUri": "ipfs://QmaMiezCMfmo5zWmwNc2WXLex11BuRZJ9p9ZhWj638Tdws"
+    },
+    {
+      "name": "Airdrop",
+      "version": "2.0.2",
+      "publishMetadataUri": "ipfs://QmPDWPQwJGiwRnnvUrSnEeoXstf26AdKmZ8dZr4o6TS9nk/0",
+      "compilerMetadataUri": "ipfs://Qmd9JHAd9igrZkysZm5VZLHM6FPX7nQEZEmFUQuqsvqcE7",
+      "bytecodeUri": "ipfs://QmYZ5iZvB76c9jaFFmyEAEVwjjUt1uVksBAnQGt1d9VG1R/0",
+      "creationBytecodeHash": "0x3c0c18b012867293c346141885e4dc5be3f0b6b5c5686f3459fa7b2cf77eccd7",
+      "auditUri": "ipfs://QmZyURZH8ZT2VbtGjVakJBw8qdM6MDKnDZD993xouaMfnG"
+    }
+  ]
+}

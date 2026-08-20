@@ -1,0 +1,88 @@
+{
+  "repository": "https://github.com/midas-apps/contracts.git",
+  "ref": "main",
+  "commit": "bfe2b5f067f8223164f59e34be3b00b3b832d24a",
+  "files": [
+    {
+      "path": "contracts/RedemptionVault.sol",
+      "upstreamBlob": "fb0312624b16e55476b2e11ba390e5e4901ea56f",
+      "localStatus": "modified"
+    },
+    {
+      "path": "contracts/abstract/ManageableVault.sol",
+      "upstreamBlob": "0c59123ff7278459094a55b84f79dae71682bcb6",
+      "localStatus": "modified"
+    },
+    {
+      "path": "contracts/abstract/MidasInitializable.sol",
+      "upstreamBlob": "f7aa5bbe0e1d0846d05fcc5150f18dac416bcb38",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/abstract/WithSanctionsList.sol",
+      "upstreamBlob": "b65a62ee3a13222c4db20d3c6287c90cb20c90b7",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/access/Blacklistable.sol",
+      "upstreamBlob": "dd2801e939caefcc65f249e50af115467bda7f36",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/access/Greenlistable.sol",
+      "upstreamBlob": "8c314c524896692f55b12c8aa6fb37c98bf52eae",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/access/MidasAccessControl.sol",
+      "upstreamBlob": "3c9e9e4777aaaed05b4b41a8dc5eabcdfb9597a5",
+      "localStatus": "modified"
+    },
+    {
+      "path": "contracts/access/MidasAccessControlRoles.sol",
+      "upstreamBlob": "295eb54463aa92556b4f542f7d06cdc1b5921e05",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/access/WithMidasAccessControl.sol",
+      "upstreamBlob": "22a7415488bc774bbe2edfdca18d50441a75f971",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/interfaces/IDataFeed.sol",
+      "upstreamBlob": "4edc4381493f12120948b3443577630878fc50ca",
+      "localStatus": "modified"
+    },
+    {
+      "path": "contracts/interfaces/IMToken.sol",
+      "upstreamBlob": "5bc3bbd864f89602e8084bf1d0ba6e799d3eeb13",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/interfaces/IManageableVault.sol",
+      "upstreamBlob": "ce174d2157069cc36922c781f49943977051cc8b",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/interfaces/IRedemptionVault.sol",
+      "upstreamBlob": "2c21f659465dc8ea5783332d38e781f4f06f3791",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/interfaces/ISanctionsList.sol",
+      "upstreamBlob": "5f30dcc954d4f23e8e39d6b84d203d6552584352",
+      "localStatus": "verbatim"
+    },
+    {
+      "path": "contracts/libraries/DecimalsCorrectionLibrary.sol",
+      "upstreamBlob": "0481385da528c84726e7cd8e3c4022b3db4151d3",
+      "localStatus": "verbatim"
+    }
+  ],
+  "excluded": [
+    {
+      "path": "contracts/access/Pausable.sol",
+      "reason": "SPDX-License-Identifier: UNLICENSED; replaced with OpenZeppelin 4.9.6 PausableUpgradeable"
+    }
+  ]
+}
