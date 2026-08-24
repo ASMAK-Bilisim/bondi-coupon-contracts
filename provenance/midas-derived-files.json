@@ -36,7 +36,7 @@
     {
       "path": "contracts/access/MidasAccessControl.sol",
       "upstreamBlob": "3c9e9e4777aaaed05b4b41a8dc5eabcdfb9597a5",
-      "localStatus": "modified"
+      "localStatus": "verbatim"
     },
     {
       "path": "contracts/access/MidasAccessControlRoles.sol",

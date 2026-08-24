@@ -163,7 +163,10 @@ abstract contract ManageableVault is
         uint256 _minAmount
     ) internal onlyInitializing {
         _validateAddress(_mTokenInitParams.mToken, false);
-        _validateAddress(_mTokenInitParams.mTokenDataFeed, false);
+        require(
+            _mTokenInitParams.mTokenDataFeed == address(0),
+            "MV: feeds disabled"
+        );
         _validateAddress(_receiversInitParams.tokensReceiver, true);
         _validateAddress(_receiversInitParams.feeReceiver, true);
         require(_instantInitParams.instantDailyLimit > 0, "zero limit");
@@ -214,7 +217,8 @@ abstract contract ManageableVault is
         bool stable
     ) external onlyVaultAdmin {
         require(_paymentTokens.add(token), "MV: already added");
-        _validateAddress(dataFeed, false);
+        require(dataFeed == address(0), "MV: feeds disabled");
+        require(!stable, "MV: unexpected stable flag");
         _validateFee(tokenFee, false);
 
         tokensConfig[token] = TokenConfig({
@@ -625,21 +629,16 @@ abstract contract ManageableVault is
     }
 
     /**
-     * @dev get token rate depends on data feed and stablecoin flag
-     * @param dataFeed address of dataFeed from token config
-     * @param stable is stablecoin
+     * @dev Coupon redemption is hardcoded 1:1. A nonzero feed address is
+     * rejected so payouts cannot depend on an external oracle.
      */
-    function _getTokenRate(address dataFeed, bool stable)
+    function _getTokenRate(address dataFeed, bool)
         internal
         view
         virtual
         returns (uint256)
     {
-        // @dev if dataFeed returns rate, all peg checks passed
-        uint256 rate = IDataFeed(dataFeed).getDataInBase18();
-
-        if (stable) return STABLECOIN_RATE;
-
-        return rate;
+        require(dataFeed == address(0), "MV: unexpected feed");
+        return STABLECOIN_RATE;
     }
 }

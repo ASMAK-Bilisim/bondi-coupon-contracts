@@ -13,23 +13,23 @@ Source was selected from `midas-apps/contracts` commit
 `bfe2b5f067f8223164f59e34be3b00b3b832d24a`. The machine-readable upstream blob IDs are
 in `provenance/midas-derived-files.json`.
 
-| Local files                                         | Upstream SPDX | Treatment                                                                                                    |
-| --------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------ |
-| `contracts/RedemptionVault.sol`                     | MIT           | Modified: exact same-wallet minimum, 1e12 granularity, live fixed-profile checks, and TokenERC20 `burnFrom`. |
-| `contracts/abstract/ManageableVault.sol`            | MIT           | Modified: Midas pauser removed; OZ 4.9.6 pause and reentrancy initializers added; permanently paused.        |
-| `contracts/access/MidasAccessControl.sol`           | MIT           | Modified: greenlist operator is initially granted and made self-administered for constrained rotation.       |
-| `contracts/interfaces/IDataFeed.sol`                | MIT           | Modified only to remove unused Chainlink/OZ imports.                                                         |
-| `contracts/abstract/MidasInitializable.sol`         | MIT           | Verbatim.                                                                                                    |
-| `contracts/abstract/WithSanctionsList.sol`          | MIT           | Verbatim.                                                                                                    |
-| `contracts/access/Blacklistable.sol`                | MIT           | Verbatim.                                                                                                    |
-| `contracts/access/Greenlistable.sol`                | MIT           | Verbatim.                                                                                                    |
-| `contracts/access/MidasAccessControlRoles.sol`      | MIT           | Verbatim.                                                                                                    |
-| `contracts/access/WithMidasAccessControl.sol`       | MIT           | Verbatim.                                                                                                    |
-| `contracts/interfaces/IMToken.sol`                  | MIT           | Verbatim; the global interface was intentionally not changed.                                                |
-| `contracts/interfaces/IManageableVault.sol`         | MIT           | Verbatim.                                                                                                    |
-| `contracts/interfaces/IRedemptionVault.sol`         | MIT           | Verbatim.                                                                                                    |
-| `contracts/interfaces/ISanctionsList.sol`           | MIT           | Verbatim.                                                                                                    |
-| `contracts/libraries/DecimalsCorrectionLibrary.sol` | MIT           | Verbatim.                                                                                                    |
+| Local files                                         | Upstream SPDX | Treatment                                                                                                      |
+| --------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------- |
+| `contracts/RedemptionVault.sol`                     | MIT           | Modified: exact same-wallet minimum, 1e12 granularity, hardcoded 1:1 payout, and TokenERC20 `burnFrom`.        |
+| `contracts/abstract/ManageableVault.sol`            | MIT           | Modified: Midas pauser removed; OZ 4.9.6 pause; permanently paused; data feeds rejected.                       |
+| `contracts/access/MidasAccessControl.sol`           | MIT           | Verbatim.                                                                                                      |
+| `contracts/interfaces/IDataFeed.sol`                | MIT           | Modified only to remove unused Chainlink/OZ imports. Kept for the verbatim Midas vault ABI; unused at runtime. |
+| `contracts/abstract/MidasInitializable.sol`         | MIT           | Verbatim.                                                                                                      |
+| `contracts/abstract/WithSanctionsList.sol`          | MIT           | Verbatim.                                                                                                      |
+| `contracts/access/Blacklistable.sol`                | MIT           | Verbatim.                                                                                                      |
+| `contracts/access/Greenlistable.sol`                | MIT           | Verbatim.                                                                                                      |
+| `contracts/access/MidasAccessControlRoles.sol`      | MIT           | Verbatim.                                                                                                      |
+| `contracts/access/WithMidasAccessControl.sol`       | MIT           | Verbatim.                                                                                                      |
+| `contracts/interfaces/IMToken.sol`                  | MIT           | Verbatim; the global interface was intentionally not changed.                                                  |
+| `contracts/interfaces/IManageableVault.sol`         | MIT           | Verbatim.                                                                                                      |
+| `contracts/interfaces/IRedemptionVault.sol`         | MIT           | Verbatim.                                                                                                      |
+| `contracts/interfaces/ISanctionsList.sol`           | MIT           | Verbatim.                                                                                                      |
+| `contracts/libraries/DecimalsCorrectionLibrary.sol` | MIT           | Verbatim.                                                                                                      |
 
 The upstream `contracts/access/Pausable.sol` has SPDX `UNLICENSED`. It was not copied, edited,
 relicensed or included in Git history. Its role is replaced by OpenZeppelin 4.9.6
@@ -54,7 +54,8 @@ Official audit references from the publish records:
 - Airdrop: `ipfs://QmZyURZH8ZT2VbtGjVakJBw8qdM6MDKnDZD993xouaMfnG`
 
 Those audits cover the published thirdweb components, not Bondi's Midas integration, role-removal
-sequence, proxy composition, fixed feed, manifest process or deployment configuration.
+sequence, OpenZeppelin ERC1967 composition, hardcoded 1:1 vault payout, manifest process or
+deployment configuration. The OpenZeppelin 4.9.6 `ERC1967Proxy` is used without a Bondi subclass.
 
 ## Other dependencies
 

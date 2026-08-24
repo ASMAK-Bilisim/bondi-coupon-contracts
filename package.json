@@ -19,11 +19,12 @@
     "test": "npm run compile && hardhat test --no-compile",
     "test:contracts": "hardhat test --no-compile",
     "lint:sol": "solhint 'contracts/**/*.sol'",
-    "format:check": "prettier --check 'contracts/feeds/*.sol' 'contracts/interfaces/ICouponToken.sol' 'contracts/mocks/*.sol' 'test/**/*.ts' 'scripts/**/*.{cjs,ts}' '*.{json,md,ts}' 'config/*.json' 'docs/**/*.md' 'provenance/*.json'",
+    "format:check": "prettier --check 'contracts/interfaces/ICouponToken.sol' 'contracts/mocks/*.sol' 'test/**/*.ts' 'scripts/**/*.{cjs,ts}' '*.{json,md,ts}' 'config/*.json' 'docs/**/*.md' 'provenance/*.json'",
     "typecheck": "tsc --noEmit",
     "verify:licenses": "node scripts/verify-licenses.cjs",
+    "verify:release": "node scripts/verify-release-manifest.cjs",
     "verify:stack": "ts-node scripts/verify-locked-stack.ts",
-    "check": "npm run verify:licenses && npm run thirdweb:verify && npm run typecheck && npm run compile && npm run lint:sol && npm run format:check && npm run test:contracts"
+    "check": "npm run verify:licenses && npm run thirdweb:verify && npm run typecheck && npm run compile && npm run verify:release && npm run lint:sol && npm run format:check && npm run test:contracts"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "1.0.4",

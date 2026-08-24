@@ -14,15 +14,17 @@ Public source for Bondi Finance coupon distribution and Rail B coupon-token rede
 - OpenZeppelin 4.9.6 `PausableUpgradeable` in place of Midas's `UNLICENSED`
   `contracts/access/Pausable.sol`. The unlicensed file and its Git history are not present here.
 - The allowance-based `burnFrom(holder, amount)` adaptation required by thirdweb TokenERC20.
-- One non-administrable fixed-$1 data feed implementation for each event asset.
+- Hardcoded 1:1 coupon-to-USDC redemption in the vault. There is no data-feed contract.
 - Exact published source and compiler manifests for:
   - thirdweb TokenERC20 5.0.4;
   - thirdweb Airdrop 2.0.2, using only its owner-push `airdropERC20` path.
+- OpenZeppelin 4.9.6 `ERC1967Proxy` as the proxy, without a Bondi subclass. Empty-initializer
+  rejection is enforced by the deploy helper and fail-closed qualification.
 - Tests for Rail A USDC distribution, Rail B coupon-token distribution, permanent route disabling,
-  exact approvals, burns, payouts, lock behavior and greenlist-operator rotation.
+  exact approvals, burns, payouts, lock behavior and a single remaining greenlist operator.
 
 The seven-bond catalogue belongs in Bondi's frontend/configuration repository. These contracts are
-event-generic: each coupon event gets its own isolated token, feeds, access control and vault stack.
+event-generic: each coupon event gets its own isolated token, access control and vault stack.
 
 ## Intended flow
 
@@ -41,17 +43,22 @@ signature per redemption, or operator-submitted holder transaction.
 ## Hard security properties
 
 - Coupon token decimals: 18. USDC decimals: 6.
-- `1e12` coupon base units redeem for exactly one USDC base unit.
+- `1e12` coupon base units redeem for exactly one USDC base unit. The vault hardcodes that rate and
+  rejects any named data feed.
 - Redemptions below `1e12`, non-`1e12` multiples and non-exact minimum outputs revert.
-- Both effective feed values must be exactly `1e18` on every successful redemption.
 - Instant and payment-token fees must remain zero.
 - Greenlisting must be enabled on every successful redemption.
 - The vault starts permanently paused. Only the approved three-argument same-wallet path omits
   `whenNotPaused`; custom-recipient, request and fiat paths can never execute.
-- ERC1967 proxies are non-administrable and expose no upgrade function.
+- ERC1967 proxies are the published OpenZeppelin 4.9.6 contract: non-administrable, no upgrade
+  function, and initialized in the creation transaction. Qualification rejects empty initializer
+  data because the OpenZeppelin constructor allows it.
 - After setup, vault admin, default admin, token minter and token admin roles must have no members.
-- The only surviving operational authority is a self-rotating `GREENLIST_OPERATOR_ROLE`, which can
-  manage only itself and `GREENLISTED_ROLE`; it cannot restore vault, mint, feed or upgrade powers.
+- The only surviving operational authority is one `GREENLIST_OPERATOR_ROLE` member, granted before
+  default admin is removed. Upstream Midas access control keeps default admin as that role's admin,
+  so after lock the operator can manage `GREENLISTED_ROLE` only. It cannot add operators, remove
+  itself, restore vault, mint or upgrade powers. Lost-key recovery is operational, not
+  onchain.
 
 See [security invariants](docs/SECURITY_INVARIANTS.md) and the
 [deployment and lock runbook](docs/DEPLOYMENT_AND_LOCK_RUNBOOK.md).
@@ -69,12 +76,21 @@ npm run check
 their exact published compiler manifests. It fails unless every source hash and the complete
 creation bytecode match the official published artifacts.
 
-After an event is deployed and locked, the read-only verifier accepts a public RPC URL and a
-qualification record. It never accepts a private key:
+`verify:release` checks compiled creation/runtime bytecode against the repository-pinned release
+manifest. The checked-in manifest remains a candidate until an independent reviewer pins the
+reviewed source commit and changes its status to `approved`.
+
+After an event is deployed and locked, the read-only verifier accepts an archive-capable public RPC
+URL and a qualification record. It authenticates direct creation transactions, constructor
+initializers, proxy runtime code, the complete administrative role history, and claim-waiver
+burn evidence. It never accepts a private key:
 
 ```bash
 ETHEREUM_RPC_URL=https://... npm run verify:stack -- qualification.json
 ```
+
+See [qualification evidence](docs/QUALIFICATION_EVIDENCE.md) for the release approval and
+deployment-evidence procedure.
 
 Hardhat is a development-only dependency. Production deployment artifacts must be generated in a
 reviewed, reproducible release process, not from a developer's mutable environment.

@@ -7,7 +7,6 @@ import {IERC20MetadataUpgradeable as IERC20Metadata} from "@openzeppelin/contrac
 import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
 
 import "./interfaces/IRedemptionVault.sol";
-import "./interfaces/IDataFeed.sol";
 import "./interfaces/ICouponToken.sol";
 
 import "./abstract/ManageableVault.sol";
@@ -149,11 +148,6 @@ contract RedemptionVault is ManageableVault, IRedemptionVault {
                 _instantInitParams.instantDailyLimit,
             "RV: supply/limit mismatch"
         );
-        require(
-            IDataFeed(_mTokenInitParams.mTokenDataFeed).getDataInBase18() ==
-                1e18,
-            "RV: coupon price != 1"
-        );
         require(_instantInitParams.instantFee == 0, "RV: instant fee != 0");
         require(
             _minAmount == COUPON_UNITS_PER_USDC_BASE_UNIT,
@@ -207,14 +201,8 @@ contract RedemptionVault is ManageableVault, IRedemptionVault {
         );
         TokenConfig storage tokenConfig = tokensConfig[tokenOut];
         require(tokenConfig.fee == 0, "RV: token fee != 0");
-        require(
-            mTokenDataFeed.getDataInBase18() == 1e18,
-            "RV: coupon price != 1"
-        );
-        require(
-            IDataFeed(tokenConfig.dataFeed).getDataInBase18() == 1e18,
-            "RV: token price != 1"
-        );
+        require(address(mTokenDataFeed) == address(0), "RV: coupon feed set");
+        require(tokenConfig.dataFeed == address(0), "RV: token feed set");
         require(
             amountMTokenIn >= COUPON_UNITS_PER_USDC_BASE_UNIT,
             "RV: amount below one USDC unit"
@@ -746,7 +734,7 @@ contract RedemptionVault is ManageableVault, IRedemptionVault {
             tokenOutRate = _getTokenRate(config.dataFeed, config.stable);
         }
 
-        uint256 mTokenRate = mTokenDataFeed.getDataInBase18();
+        uint256 mTokenRate = _getMTokenRate();
 
         if (calcResult.feeAmount > 0)
             _tokenTransferFromUser(
@@ -894,7 +882,8 @@ contract RedemptionVault is ManageableVault, IRedemptionVault {
      * @return mTokenRate mToken rate
      */
     function _getMTokenRate() private view returns (uint256 mTokenRate) {
-        mTokenRate = _getTokenRate(address(mTokenDataFeed), false);
+        require(address(mTokenDataFeed) == address(0), "RV: unexpected coupon feed");
+        mTokenRate = STABLECOIN_RATE;
         require(mTokenRate > 0, "RV: rate zero");
     }
 }

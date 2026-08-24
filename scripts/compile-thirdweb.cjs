@@ -82,7 +82,13 @@ function loadProfile(profile) {
   delete settings.compilationTarget;
   settings.outputSelection = {
     "*": {
-      "*": ["abi", "evm.bytecode.object", "evm.deployedBytecode.object", "metadata"],
+      "*": [
+        "abi",
+        "evm.bytecode.object",
+        "evm.deployedBytecode.object",
+        "evm.deployedBytecode.immutableReferences",
+        "metadata",
+      ],
     },
   };
 
@@ -119,6 +125,7 @@ function loadProfile(profile) {
     abi: contract.abi,
     bytecode: compiledBytecode,
     deployedBytecode: `0x${contract.evm.deployedBytecode.object}`,
+    immutableReferences: contract.evm.deployedBytecode.immutableReferences,
     compiler: metadata.compiler.version,
     publish,
   };

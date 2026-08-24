@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "releaseId": "bondi-coupon-stack-candidate-1",
+  "sourceCommit": "TO_BE_SET_AFTER_REVIEWED_COMMIT",
+  "approvalStatus": "candidate",
+  "artifacts": {
+    "erc1967Proxy": {
+      "artifactPath": "artifacts/@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol/ERC1967Proxy.json",
+      "creationCodeHash": "0xdd20d39d02e21edb4b615569744543f06b9a7a646303378888d600e4b1ce59b1",
+      "runtimeCodeHash": "0xf5a2d79a3c1a245e4358fffd195fb2c9970d9a630cb2114ee68fd0e48fa6f138"
+    },
+    "redemptionVault": {
+      "artifactPath": "artifacts/contracts/RedemptionVault.sol/RedemptionVault.json",
+      "creationCodeHash": "0x4d32f29ab0998937cb8570dc10cef2a260c1cf6bb4f26d53ed6305f8a91afec8",
+      "runtimeCodeHash": "0x9e334345494b0d9e79e94eaa1d921ec4398054f7d0271c2265584d35c5514530"
+    },
+    "midasAccessControl": {
+      "artifactPath": "artifacts/contracts/access/MidasAccessControl.sol/MidasAccessControl.json",
+      "creationCodeHash": "0xfc2103cb8e437f89e835701220aede7545fea89313e145b35f5b5168332153e0",
+      "runtimeCodeHash": "0xd3e2da194d0d7e4fd2d4ab37604ac9b0e42dd27ca109751d9d1e97b17ebb2ffc"
+    },
+    "tokenERC20": {
+      "artifactPath": "vendor-artifacts/TokenERC20.json",
+      "creationCodeHash": "0x8f0b6a31c72603c3e4de170187fbccf4e321c408c871ef4720e4607a2d8dde6e",
+      "runtimeCodeHash": "0xcb4b80aa34a530d385829e226ec5d98a2ca8d2e4cbb499697ed696fb4dd737f7"
+    },
+    "airdrop": {
+      "artifactPath": "vendor-artifacts/Airdrop.json",
+      "creationCodeHash": "0x3c0c18b012867293c346141885e4dc5be3f0b6b5c5686f3459fa7b2cf77eccd7",
+      "runtimeTemplateCodeHash": "0xffe8a0fe7d1bb6ab043f9eb13dc15a53e80e3da02ec76ed930000d0792f2e116",
+      "immutableReferences": [
+        {
+          "name": "cachedDomainSeparator",
+          "start": 6735,
+          "length": 32
+        },
+        {
+          "name": "cachedThis",
+          "start": 6768,
+          "length": 32
+        },
+        {
+          "name": "cachedChainId",
+          "start": 6803,
+          "length": 32
+        },
+        {
+          "name": "cachedNameHash",
+          "start": 6883,
+          "length": 32
+        },
+        {
+          "name": "cachedVersionHash",
+          "start": 6921,
+          "length": 32
+        }
+      ]
+    }
+  }
+}

@@ -69,12 +69,8 @@ contract MidasAccessControl is
      */
     function _setupRoles(address admin) private {
         _grantRole(DEFAULT_ADMIN_ROLE, admin);
-        _grantRole(GREENLIST_OPERATOR_ROLE, admin);
 
         _setRoleAdmin(BLACKLISTED_ROLE, BLACKLIST_OPERATOR_ROLE);
         _setRoleAdmin(GREENLISTED_ROLE, GREENLIST_OPERATOR_ROLE);
-        // The constrained KYC operator can rotate after DEFAULT_ADMIN_ROLE
-        // is removed, but cannot restore vault, feed, mint or upgrade powers.
-        _setRoleAdmin(GREENLIST_OPERATOR_ROLE, GREENLIST_OPERATOR_ROLE);
     }
 }
